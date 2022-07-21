@@ -1,13 +1,13 @@
-﻿@model ProjetoMVC.Models.Produto
+﻿@model ProjetoMVC.Models.Pedido
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h3>Detalhes</h3>
+<h1>Details</h1>
 
 <div>
-    <h4>Produto</h4>
+    <h4>Pedido</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -17,38 +17,38 @@
             @Html.DisplayFor(model => model.Codigo)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Descricao)
+            @Html.DisplayNameFor(model => model.DataPedido)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Descricao)
+            @Html.DisplayFor(model => model.DataPedido)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Quantidade)
+            @Html.DisplayNameFor(model => model.Produto)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Quantidade)
+            @Html.DisplayFor(model => model.Produto.id)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DataCadastro)
+            @Html.DisplayNameFor(model => model.QtdPedido)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DataCadastro)
+            @Html.DisplayFor(model => model.QtdPedido)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Valor)
+            @Html.DisplayNameFor(model => model.Fornecedor)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Valor)
+            @Html.DisplayFor(model => model.Fornecedor.Id)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Categoria)
+            @Html.DisplayNameFor(model => model.ValorTotal)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Categoria.Descricao)
+            @Html.DisplayFor(model => model.ValorTotal)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.id">Salvar</a> |
-    <a asp-action="Index">Cancelar</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
 </div>

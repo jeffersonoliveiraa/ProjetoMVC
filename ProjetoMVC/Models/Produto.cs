@@ -16,7 +16,7 @@ namespace ProjetoMVC.Models
         [Range(1,10, ErrorMessage = "Valor fora do permitido")]
         public int Quantidade { get; set; }
         public DateTime DataCadastro { get; set; }
-        public double Valor { get; set; }
+        public decimal Valor { get; set; }
         public int CategoriaID { get; set; }
         public Categoria Categoria { get; set; }
     }

@@ -9,23 +9,23 @@ using ProjetoMVC.Models;
 
 namespace ProjetoMVC.Controllers
 {
-    public class ProdutosController : Controller
+    public class PedidosController : Controller
     {
         private readonly Context _context;
 
-        public ProdutosController(Context context)
+        public PedidosController(Context context)
         {
             _context = context;
         }
 
-        // GET: Produtos
+        // GET: Pedidos
         public async Task<IActionResult> Index()
         {
-            var context = _context.Produtos.Include(p => p.Categoria);
+            var context = _context.Pedidos.Include(p => p.Fornecedor).Include(p => p.Produto);
             return View(await context.ToListAsync());
         }
 
-        // GET: Produtos/Details/5
+        // GET: Pedidos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,43 +33,45 @@ namespace ProjetoMVC.Controllers
                 return NotFound();
             }
 
-            var produto = await _context.Produtos
-                .Include(p => p.Categoria)
-                .FirstOrDefaultAsync(m => m.id == id);
-            if (produto == null)
+            var pedido = await _context.Pedidos
+                .Include(p => p.Fornecedor)
+                .Include(p => p.Produto)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (pedido == null)
             {
                 return NotFound();
             }
 
-            return View(produto);
+            return View(pedido);
         }
 
-        // GET: Produtos/Create
+        // GET: Pedidos/Create
         public IActionResult Create()
         {
-            ViewData["CategoriaID"] = new SelectList(_context.Categorias, "id", "Descricao");
+            ViewData["FornecedorId"] = new SelectList(_context.Fornecedores, "Id", "RazaoSocial");
+            ViewData["ProdutoId"] = new SelectList(_context.Produtos, "id", "Descricao");
             return View();
         }
 
-        // POST: Produtos/Create
+        // POST: Pedidos/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,Codigo,Descricao,Quantidade,DataCadastro,Valor,CategoriaID")] Produto produto)
+        public async Task<IActionResult> Create([Bind("Id,Codigo,DataPedido,ProdutoId,QtdPedido,FornecedorId,ValorTotal")] Pedido pedido)
         {
-            produto.DataCadastro = DateTime.Now;
             if (ModelState.IsValid)
             {
-                _context.Add(produto);
+                _context.Add(pedido);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoriaID"] = new SelectList(_context.Categorias, "id", "Descricao", produto.CategoriaID);
-            return View(produto);
+            ViewData["FornecedorId"] = new SelectList(_context.Fornecedores, "Id", "RazaoSocial", pedido.FornecedorId);
+            ViewData["ProdutoId"] = new SelectList(_context.Produtos, "id", "Descricao", pedido.ProdutoId);
+            return View(pedido);
         }
 
-        // GET: Produtos/Edit/5
+        // GET: Pedidos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,23 +79,24 @@ namespace ProjetoMVC.Controllers
                 return NotFound();
             }
 
-            var produto = await _context.Produtos.FindAsync(id);
-            if (produto == null)
+            var pedido = await _context.Pedidos.FindAsync(id);
+            if (pedido == null)
             {
                 return NotFound();
             }
-            ViewData["CategoriaID"] = new SelectList(_context.Categorias, "id", "Descricao", produto.CategoriaID);
-            return View(produto);
+            ViewData["FornecedorId"] = new SelectList(_context.Fornecedores, "Id", "RazaoSocial", pedido.FornecedorId);
+            ViewData["ProdutoId"] = new SelectList(_context.Produtos, "id", "Descricao", pedido.ProdutoId);
+            return View(pedido);
         }
 
-        // POST: Produtos/Edit/5
+        // POST: Pedidos/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,Codigo,Descricao,Quantidade,Valor,CategoriaID")] Produto produto)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Codigo,DataPedido,ProdutoId,QtdPedido,FornecedorId,ValorTotal")] Pedido pedido)
         {
-            if (id != produto.id)
+            if (id != pedido.Id)
             {
                 return NotFound();
             }
@@ -102,12 +105,12 @@ namespace ProjetoMVC.Controllers
             {
                 try
                 {
-                    _context.Update(produto);
+                    _context.Update(pedido);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProdutoExists(produto.id))
+                    if (!PedidoExists(pedido.Id))
                     {
                         return NotFound();
                     }
@@ -118,11 +121,12 @@ namespace ProjetoMVC.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoriaID"] = new SelectList(_context.Categorias, "id", "Descricao", produto.CategoriaID);
-            return View(produto);
+            ViewData["FornecedorId"] = new SelectList(_context.Fornecedores, "Id", "RazaoSocial", pedido.FornecedorId);
+            ViewData["ProdutoId"] = new SelectList(_context.Produtos, "id", "Descricao", pedido.ProdutoId);
+            return View(pedido);
         }
 
-        // GET: Produtos/Delete/5
+        // GET: Pedidos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,31 +134,32 @@ namespace ProjetoMVC.Controllers
                 return NotFound();
             }
 
-            var produto = await _context.Produtos
-                .Include(p => p.Categoria)
-                .FirstOrDefaultAsync(m => m.id == id);
-            if (produto == null)
+            var pedido = await _context.Pedidos
+                .Include(p => p.Fornecedor)
+                .Include(p => p.Produto)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (pedido == null)
             {
                 return NotFound();
             }
 
-            return View(produto);
+            return View(pedido);
         }
 
-        // POST: Produtos/Delete/5
+        // POST: Pedidos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var produto = await _context.Produtos.FindAsync(id);
-            _context.Produtos.Remove(produto);
+            var pedido = await _context.Pedidos.FindAsync(id);
+            _context.Pedidos.Remove(pedido);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProdutoExists(int id)
+        private bool PedidoExists(int id)
         {
-            return _context.Produtos.Any(e => e.id == id);
+            return _context.Pedidos.Any(e => e.Id == id);
         }
     }
 }

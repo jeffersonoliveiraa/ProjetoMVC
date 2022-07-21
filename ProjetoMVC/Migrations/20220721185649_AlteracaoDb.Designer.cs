@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjetoMVC.Models;
 
 namespace ProjetoMVC.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20220721185649_AlteracaoDb")]
+    partial class AlteracaoDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,23 +77,23 @@ namespace ProjetoMVC.Migrations
                     b.Property<DateTime>("DataPedido")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("FornecedorId")
+                    b.Property<int?>("FornecedorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProdutoId")
+                    b.Property<int?>("Produtoid")
                         .HasColumnType("int");
 
                     b.Property<int>("QtdPedido")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("ValorTotal")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("ValorTotal")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
                     b.HasIndex("FornecedorId");
 
-                    b.HasIndex("ProdutoId");
+                    b.HasIndex("Produtoid");
 
                     b.ToTable("Pedidos");
                 });
@@ -118,8 +120,8 @@ namespace ProjetoMVC.Migrations
                     b.Property<int>("Quantidade")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Valor")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Valor")
+                        .HasColumnType("float");
 
                     b.HasKey("id");
 
@@ -132,15 +134,11 @@ namespace ProjetoMVC.Migrations
                 {
                     b.HasOne("ProjetoMVC.Models.Fornecedor", "Fornecedor")
                         .WithMany()
-                        .HasForeignKey("FornecedorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FornecedorId");
 
                     b.HasOne("ProjetoMVC.Models.Produto", "Produto")
                         .WithMany()
-                        .HasForeignKey("ProdutoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Produtoid");
 
                     b.Navigation("Fornecedor");
 

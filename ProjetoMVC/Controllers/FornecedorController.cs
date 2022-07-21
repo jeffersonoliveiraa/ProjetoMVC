@@ -9,23 +9,22 @@ using ProjetoMVC.Models;
 
 namespace ProjetoMVC.Controllers
 {
-    public class ProdutosController : Controller
+    public class FornecedorController : Controller
     {
         private readonly Context _context;
 
-        public ProdutosController(Context context)
+        public FornecedorController(Context context)
         {
             _context = context;
         }
 
-        // GET: Produtos
+        // GET: Fornecedor
         public async Task<IActionResult> Index()
         {
-            var context = _context.Produtos.Include(p => p.Categoria);
-            return View(await context.ToListAsync());
+            return View(await _context.Fornecedores.ToListAsync());
         }
 
-        // GET: Produtos/Details/5
+        // GET: Fornecedor/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,43 +32,39 @@ namespace ProjetoMVC.Controllers
                 return NotFound();
             }
 
-            var produto = await _context.Produtos
-                .Include(p => p.Categoria)
-                .FirstOrDefaultAsync(m => m.id == id);
-            if (produto == null)
+            var fornecedor = await _context.Fornecedores
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (fornecedor == null)
             {
                 return NotFound();
             }
 
-            return View(produto);
+            return View(fornecedor);
         }
 
-        // GET: Produtos/Create
+        // GET: Fornecedor/Create
         public IActionResult Create()
         {
-            ViewData["CategoriaID"] = new SelectList(_context.Categorias, "id", "Descricao");
             return View();
         }
 
-        // POST: Produtos/Create
+        // POST: Fornecedor/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,Codigo,Descricao,Quantidade,DataCadastro,Valor,CategoriaID")] Produto produto)
+        public async Task<IActionResult> Create([Bind("Id,RazaoSocial,Cnpj,UF,Email,NomeContato")] Fornecedor fornecedor)
         {
-            produto.DataCadastro = DateTime.Now;
             if (ModelState.IsValid)
             {
-                _context.Add(produto);
+                _context.Add(fornecedor);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoriaID"] = new SelectList(_context.Categorias, "id", "Descricao", produto.CategoriaID);
-            return View(produto);
+            return View(fornecedor);
         }
 
-        // GET: Produtos/Edit/5
+        // GET: Fornecedor/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,23 +72,22 @@ namespace ProjetoMVC.Controllers
                 return NotFound();
             }
 
-            var produto = await _context.Produtos.FindAsync(id);
-            if (produto == null)
+            var fornecedor = await _context.Fornecedores.FindAsync(id);
+            if (fornecedor == null)
             {
                 return NotFound();
             }
-            ViewData["CategoriaID"] = new SelectList(_context.Categorias, "id", "Descricao", produto.CategoriaID);
-            return View(produto);
+            return View(fornecedor);
         }
 
-        // POST: Produtos/Edit/5
+        // POST: Fornecedor/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,Codigo,Descricao,Quantidade,Valor,CategoriaID")] Produto produto)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,RazaoSocial,Cnpj,UF,Email,NomeContato")] Fornecedor fornecedor)
         {
-            if (id != produto.id)
+            if (id != fornecedor.Id)
             {
                 return NotFound();
             }
@@ -102,12 +96,12 @@ namespace ProjetoMVC.Controllers
             {
                 try
                 {
-                    _context.Update(produto);
+                    _context.Update(fornecedor);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProdutoExists(produto.id))
+                    if (!FornecedorExists(fornecedor.Id))
                     {
                         return NotFound();
                     }
@@ -118,11 +112,10 @@ namespace ProjetoMVC.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoriaID"] = new SelectList(_context.Categorias, "id", "Descricao", produto.CategoriaID);
-            return View(produto);
+            return View(fornecedor);
         }
 
-        // GET: Produtos/Delete/5
+        // GET: Fornecedor/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,31 +123,30 @@ namespace ProjetoMVC.Controllers
                 return NotFound();
             }
 
-            var produto = await _context.Produtos
-                .Include(p => p.Categoria)
-                .FirstOrDefaultAsync(m => m.id == id);
-            if (produto == null)
+            var fornecedor = await _context.Fornecedores
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (fornecedor == null)
             {
                 return NotFound();
             }
 
-            return View(produto);
+            return View(fornecedor);
         }
 
-        // POST: Produtos/Delete/5
+        // POST: Fornecedor/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var produto = await _context.Produtos.FindAsync(id);
-            _context.Produtos.Remove(produto);
+            var fornecedor = await _context.Fornecedores.FindAsync(id);
+            _context.Fornecedores.Remove(fornecedor);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProdutoExists(int id)
+        private bool FornecedorExists(int id)
         {
-            return _context.Produtos.Any(e => e.id == id);
+            return _context.Fornecedores.Any(e => e.Id == id);
         }
     }
 }
