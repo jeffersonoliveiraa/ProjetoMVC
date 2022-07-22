@@ -56,7 +56,7 @@ namespace ProjetoMVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,Codigo,Descricao,Quantidade,DataCadastro,Valor,CategoriaID")] Produto produto)
+        public async Task<IActionResult> Create([Bind("id,Codigo,Descricao,DataCadastro,Valor,CategoriaID")] Produto produto)
         {
             produto.DataCadastro = DateTime.Now;
             if (ModelState.IsValid)
@@ -91,7 +91,7 @@ namespace ProjetoMVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,Codigo,Descricao,Quantidade,Valor,CategoriaID")] Produto produto)
+        public async Task<IActionResult> Edit(int id, [Bind("id,Codigo,Descricao,Valor,CategoriaID")] Produto produto)
         {
             if (id != produto.id)
             {

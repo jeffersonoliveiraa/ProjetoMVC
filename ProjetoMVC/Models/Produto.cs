@@ -13,10 +13,10 @@ namespace ProjetoMVC.Models
         public int Codigo { get; set; }
         [Display(Name = "Descrição")]
         public string Descricao { get; set; }
-        [Range(1,10, ErrorMessage = "Valor fora do permitido")]
-        public int Quantidade { get; set; }
+        [Display(Name = "Data do cadastro")]
         public DateTime DataCadastro { get; set; }
         public decimal Valor { get; set; }
+        [Display(Name = "Categoria")]
         public int CategoriaID { get; set; }
         public Categoria Categoria { get; set; }
     }
