@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProjetoMVC.Models;
+using ProjetoMVC.ViewModel;
 
 namespace ProjetoMVC.Controllers
 {
@@ -58,7 +59,6 @@ namespace ProjetoMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("id,Codigo,Descricao,DataCadastro,Valor,CategoriaID")] Produto produto)
         {
-            produto.DataCadastro = DateTime.Now;
             if (ModelState.IsValid)
             {
                 _context.Add(produto);
@@ -91,10 +91,9 @@ namespace ProjetoMVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id,[Bind("id,Codigo,DataCadasto,Descricao,Valor,CategoriaID")] Produto produto, DateTime dataCadastro, decimal Valor)
+        public async Task<IActionResult> Edit(int id,[Bind("id,Codigo,DataCadasto,Descricao,Valor,CategoriaID")] Produto produto, DateTime dataCadastro)
         {
             produto.DataCadastro = dataCadastro;
-            produto.Valor = Valor;
             if (id != produto.id)
             {
                 return NotFound();

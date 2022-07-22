@@ -22,7 +22,7 @@ namespace ProjetoMVC.Models
         public DateTime DataCadastro { get; set; }
 
         [Required(ErrorMessage = "Insira o preço do produto", AllowEmptyStrings = false)]
-        public Decimal Valor { get; set; }
+        public string Valor { get; set; }
 
         [Display(Name = "Categoria")]
         public int CategoriaID { get; set; }
