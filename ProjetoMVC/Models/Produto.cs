@@ -19,11 +19,10 @@ namespace ProjetoMVC.Models
         public string Descricao { get; set; }
 
         [Display(Name = "Data do cadastro")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DataCadastro { get; set; }
 
         [Required(ErrorMessage = "Insira o preço do produto", AllowEmptyStrings = false)]
-        public float Valor { get; set; }
+        public Decimal Valor { get; set; }
 
         [Display(Name = "Categoria")]
         public int CategoriaID { get; set; }

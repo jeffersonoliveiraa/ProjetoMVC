@@ -8,12 +8,10 @@ namespace ProjetoMVC.Models
 {
     public class Pedido
     {
+        [Display(Name = "Código")]
         public int Id { get; set; }
 
-        public int Codigo { get; set; }
-
         [Display(Name = "Data do Pedido")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DataPedido { get; set; }
 
         [Display(Name = "Produto")]
@@ -30,6 +28,6 @@ namespace ProjetoMVC.Models
         public Fornecedor Fornecedor { get; set; }
 
         [Display(Name = "Valor Total")]
-        public float ValorTotal { get; set; }
+        public Decimal ValorTotal { get; set; }
     }
 }

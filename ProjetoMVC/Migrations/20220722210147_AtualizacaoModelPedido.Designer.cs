@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjetoMVC.Models;
 
 namespace ProjetoMVC.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20220722210147_AtualizacaoModelPedido")]
+    partial class AtualizacaoModelPedido
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,8 +89,8 @@ namespace ProjetoMVC.Migrations
                     b.Property<int>("QtdPedido")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("ValorTotal")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("ValorTotal")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -119,8 +121,8 @@ namespace ProjetoMVC.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Valor")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Valor")
+                        .HasColumnType("float");
 
                     b.HasKey("id");
 
