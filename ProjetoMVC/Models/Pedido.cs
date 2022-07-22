@@ -28,6 +28,6 @@ namespace ProjetoMVC.Models
         public Fornecedor Fornecedor { get; set; }
 
         [Display(Name = "Valor Total")]
-        public Decimal ValorTotal { get; set; }
+        public string ValorTotal { get; set; }
     }
 }

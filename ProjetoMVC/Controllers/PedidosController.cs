@@ -60,8 +60,13 @@ namespace ProjetoMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Codigo,DataPedido,ProdutoId,QtdPedido,FornecedorId,ValorTotal")] Pedido pedido)
         {
+            decimal valorConvertido;
+            decimal total;
             if (ModelState.IsValid)
             {
+                valorConvertido = Convert.ToDecimal(pedido.Produto.Valor);
+                pedido.ValorTotal = valorConvertido * pedido.QtdPedido;
+
                 _context.Add(pedido);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
