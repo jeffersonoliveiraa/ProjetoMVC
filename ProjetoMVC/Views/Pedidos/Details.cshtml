@@ -4,7 +4,7 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Detalhes</h1>
 
 <div>
     <h4>Pedido</h4>
@@ -14,7 +14,7 @@
             @Html.DisplayNameFor(model => model.Codigo)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Codigo)
+            @Html.DisplayFor(model => model.Id)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.DataPedido)
@@ -26,7 +26,7 @@
             @Html.DisplayNameFor(model => model.Produto)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Produto.id)
+            @Html.DisplayFor(model => model.Produto.Descricao)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.QtdPedido)
@@ -38,7 +38,7 @@
             @Html.DisplayNameFor(model => model.Fornecedor)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Fornecedor.Id)
+            @Html.DisplayFor(model => model.Fornecedor.RazaoSocial)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.ValorTotal)
@@ -49,6 +49,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success">Editar</a> |
+    <a asp-action="Index" class="btn btn-light">Retornar pra lista</a>
 </div>

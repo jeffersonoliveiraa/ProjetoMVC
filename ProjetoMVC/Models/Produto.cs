@@ -9,13 +9,22 @@ namespace ProjetoMVC.Models
     public class Produto
     {
         public int id { get; set; }
-        [Display(Name = "Codigo")]
+
+        [Display(Name = "Código")]
+        [Required(ErrorMessage = "Código do produto é obrigatório", AllowEmptyStrings = false)]
         public int Codigo { get; set; }
+
         [Display(Name = "Descrição")]
+        [Required(ErrorMessage = "Nome do produto é obrigatório", AllowEmptyStrings = false)]
         public string Descricao { get; set; }
+
         [Display(Name = "Data do cadastro")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DataCadastro { get; set; }
+
+        [Required(ErrorMessage = "Insira o preço do produto", AllowEmptyStrings = false)]
         public decimal Valor { get; set; }
+
         [Display(Name = "Categoria")]
         public int CategoriaID { get; set; }
         public Categoria Categoria { get; set; }
