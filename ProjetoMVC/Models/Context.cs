@@ -15,7 +15,8 @@ namespace ProjetoMVC.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(connectionString: @"Server=localhost;Database=Projetomvc;Integrated Security=True;User ID=sa;Password=usucac369;");
+            optionsBuilder.UseSqlServer(connectionString: @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Projetomvc;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            //optionsBuilder.UseSqlServer(connectionString: @"Server=localhost;Database=Projetomvc;Integrated Security=True;User ID=sa;Password=usucac369;");
         }
 
 

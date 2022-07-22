@@ -27,6 +27,7 @@ namespace ProjetoMVC.Models
         public string Email { get; set; }
 
         [Required(ErrorMessage = "O nome do responsavel é obrigatório", AllowEmptyStrings = false)]
+        [Display(Name = "Nome")]
         public string NomeContato { get; set; }
     }
 }

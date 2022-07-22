@@ -91,9 +91,9 @@ namespace ProjetoMVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, DateTime DataCadastro,[Bind("id,Codigo,DataCadasto,Descricao,Valor,CategoriaID")] Produto produto)
+        public async Task<IActionResult> Edit(int id, DateTime dataCadastro,[Bind("id,Codigo,DataCadasto,Descricao,Valor,CategoriaID")] Produto produto)
         {
-            produto.DataCadastro = DataCadastro;
+            produto.DataCadastro = dataCadastro;
             if (id != produto.id)
             {
                 return NotFound();
