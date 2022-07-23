@@ -9,10 +9,6 @@ namespace ProjetoMVC.Models
 {
     public class Produto
     {
-        public Produto()
-        {
-            this.Pedidos = new List<Pedido>();
-        }
         public int id { get; set; }
 
         [Display(Name = "Código")]
@@ -33,7 +29,5 @@ namespace ProjetoMVC.Models
         [ForeignKey("Categoria")]
         public int CategoriaID { get; set; }
         public Categoria Categoria { get; set; }
-
-        public List<Pedido> Pedidos { get; set; }
     }
 }

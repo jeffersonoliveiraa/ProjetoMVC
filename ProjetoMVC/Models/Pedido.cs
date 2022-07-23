@@ -15,7 +15,7 @@ namespace ProjetoMVC.Models
         [Display(Name = "Data do Pedido")]
         public DateTime DataPedido { get; set; }
 
-        //[Display(Name = "Produto")]
+        [Display(Name = "Produto")]
         [ForeignKey("Produtos")]
         public int ProdutoId { get; set; }
 
@@ -24,7 +24,7 @@ namespace ProjetoMVC.Models
         [Display(Name = "Quantidade")]
         public int QtdPedido { get; set; }
 
-        //[Display(Name = "Fornecedor")]
+        [Display(Name = "Fornecedor")]
         [ForeignKey("Fornecedores")]
         public int FornecedorId { get; set; }
 

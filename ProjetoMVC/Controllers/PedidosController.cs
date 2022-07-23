@@ -66,8 +66,9 @@ namespace ProjetoMVC.Controllers
             {
                 var result = _context.Produtos.Where(o => o.id == pedido.ProdutoId).FirstOrDefault();
                 pedido.DataPedido = DateTime.Now;
-                valorConvertido = Convert.ToDecimal(result.Valor);
-                total = valorConvertido * pedido.QtdPedido / 100;
+                var str = result.Valor.Replace("R", "").Replace("$", "");
+                valorConvertido = Convert.ToDecimal(str);
+                total = valorConvertido * pedido.QtdPedido;
                 pedido.ValorTotal = total.ToString("C");
 
                 _context.Add(pedido);

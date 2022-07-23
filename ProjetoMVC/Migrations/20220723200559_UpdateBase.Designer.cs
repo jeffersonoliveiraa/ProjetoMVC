@@ -10,8 +10,8 @@ using ProjetoMVC.Models;
 namespace ProjetoMVC.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20220722210710_AtualizacaoModelValor")]
-    partial class AtualizacaoModelValor
+    [Migration("20220723200559_UpdateBase")]
+    partial class UpdateBase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -89,8 +89,8 @@ namespace ProjetoMVC.Migrations
                     b.Property<int>("QtdPedido")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("ValorTotal")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("ValorTotal")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -121,8 +121,9 @@ namespace ProjetoMVC.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Valor")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("Valor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
 

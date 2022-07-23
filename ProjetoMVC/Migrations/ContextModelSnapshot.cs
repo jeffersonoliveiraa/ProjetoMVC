@@ -133,13 +133,13 @@ namespace ProjetoMVC.Migrations
             modelBuilder.Entity("ProjetoMVC.Models.Pedido", b =>
                 {
                     b.HasOne("ProjetoMVC.Models.Fornecedor", "Fornecedor")
-                        .WithMany("Pedidos")
+                        .WithMany()
                         .HasForeignKey("FornecedorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ProjetoMVC.Models.Produto", "Produto")
-                        .WithMany("Pedidos")
+                        .WithMany()
                         .HasForeignKey("ProdutoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -158,16 +158,6 @@ namespace ProjetoMVC.Migrations
                         .IsRequired();
 
                     b.Navigation("Categoria");
-                });
-
-            modelBuilder.Entity("ProjetoMVC.Models.Fornecedor", b =>
-                {
-                    b.Navigation("Pedidos");
-                });
-
-            modelBuilder.Entity("ProjetoMVC.Models.Produto", b =>
-                {
-                    b.Navigation("Pedidos");
                 });
 #pragma warning restore 612, 618
         }

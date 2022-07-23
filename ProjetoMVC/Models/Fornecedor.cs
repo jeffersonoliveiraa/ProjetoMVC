@@ -8,10 +8,6 @@ namespace ProjetoMVC.Models
 {
     public class Fornecedor
     {
-        public Fornecedor()
-        {
-            this.Pedidos = new List<Pedido>();
-        }
         public int Id { get; set; }
 
         [Display(Name = "Razão Social")]
@@ -33,7 +29,5 @@ namespace ProjetoMVC.Models
         [Required(ErrorMessage = "O nome do responsavel é obrigatório", AllowEmptyStrings = false)]
         [Display(Name = "Nome")]
         public string NomeContato { get; set; }
-
-        public List<Pedido> Pedidos { get; set; }
     }
 }

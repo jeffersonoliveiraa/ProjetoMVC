@@ -63,6 +63,8 @@ namespace ProjetoMVC.Controllers
             {
                 _context.Add(produto);
                 produto.DataCadastro = DateTime.Now;
+                var valorDeciaml = Convert.ToDecimal(produto.Valor);
+                produto.Valor = valorDeciaml.ToString("C");
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
