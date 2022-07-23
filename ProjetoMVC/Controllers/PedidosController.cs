@@ -58,14 +58,17 @@ namespace ProjetoMVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Codigo,DataPedido,ProdutoId,QtdPedido,FornecedorId,ValorTotal")] Pedido pedido)
+        public async Task<IActionResult> Create([Bind("Id,ProdutoId,QtdPedido,FornecedorId")] Pedido pedido)
         {
             decimal valorConvertido;
             decimal total;
             if (ModelState.IsValid)
             {
-                valorConvertido = Convert.ToDecimal(pedido.Produto.Valor);
-                pedido.ValorTotal = valorConvertido * pedido.QtdPedido;
+                var result = _context.Produtos.Where(o => o.id == pedido.ProdutoId).FirstOrDefault();
+                pedido.DataPedido = DateTime.Now;
+                valorConvertido = Convert.ToDecimal(result.Valor);
+                total = valorConvertido * pedido.QtdPedido / 100;
+                pedido.ValorTotal = total.ToString("C");
 
                 _context.Add(pedido);
                 await _context.SaveChangesAsync();

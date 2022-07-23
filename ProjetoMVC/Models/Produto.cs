@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,6 +9,10 @@ namespace ProjetoMVC.Models
 {
     public class Produto
     {
+        public Produto()
+        {
+            this.Pedidos = new List<Pedido>();
+        }
         public int id { get; set; }
 
         [Display(Name = "Código")]
@@ -25,7 +30,10 @@ namespace ProjetoMVC.Models
         public string Valor { get; set; }
 
         [Display(Name = "Categoria")]
+        [ForeignKey("Categoria")]
         public int CategoriaID { get; set; }
         public Categoria Categoria { get; set; }
+
+        public List<Pedido> Pedidos { get; set; }
     }
 }

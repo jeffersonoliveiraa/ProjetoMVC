@@ -62,6 +62,7 @@ namespace ProjetoMVC.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(produto);
+                produto.DataCadastro = DateTime.Now;
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

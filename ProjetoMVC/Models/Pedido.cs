@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,7 +15,8 @@ namespace ProjetoMVC.Models
         [Display(Name = "Data do Pedido")]
         public DateTime DataPedido { get; set; }
 
-        [Display(Name = "Produto")]
+        //[Display(Name = "Produto")]
+        [ForeignKey("Produtos")]
         public int ProdutoId { get; set; }
 
         public Produto Produto { get; set; }
@@ -22,7 +24,8 @@ namespace ProjetoMVC.Models
         [Display(Name = "Quantidade")]
         public int QtdPedido { get; set; }
 
-        [Display(Name = "Fornecedor")]
+        //[Display(Name = "Fornecedor")]
+        [ForeignKey("Fornecedores")]
         public int FornecedorId { get; set; }
 
         public Fornecedor Fornecedor { get; set; }
