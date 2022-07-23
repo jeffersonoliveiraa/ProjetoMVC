@@ -105,6 +105,8 @@ namespace ProjetoMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Codigo,DataPedido,ProdutoId,QtdPedido,FornecedorId,ValorTotal")] Pedido pedido)
         {
+            decimal valorConvertido;
+            decimal total;
             if (id != pedido.Id)
             {
                 return NotFound();
@@ -114,6 +116,12 @@ namespace ProjetoMVC.Controllers
             {
                 try
                 {
+                    var result = _context.Produtos.Where(o => o.id == pedido.ProdutoId).FirstOrDefault();
+                    pedido.DataPedido = DateTime.Now;
+                    var str = result.Valor.Replace("R", "").Replace("$", "");
+                    valorConvertido = Convert.ToDecimal(str);
+                    total = valorConvertido * pedido.QtdPedido;
+                    pedido.ValorTotal = total.ToString("C");
                     _context.Update(pedido);
                     await _context.SaveChangesAsync();
                 }
